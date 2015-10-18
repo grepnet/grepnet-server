@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     var url = req.body.url;
     var phrase = req.body.phrase;
-    var regexp = new RegExp(phrase);
+    var regexp = new RegExp(phrase, 'i');
 
     request(url, function (error, response, body) {
         if (error) throw error;

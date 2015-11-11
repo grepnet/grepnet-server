@@ -14,9 +14,15 @@ app.use(logger({
     path: 'logs/access.log'
 }));
 app.use(morgan('dev'));
+
+var whitelist = ['http://localhost', 'http://www.grepnet.io'];
 app.use(cors({
-    origin: 'http://localhost'
+    origin: function (origin, callback) {
+        var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, originIsWhitelisted);
+    }
 }));
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

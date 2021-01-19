@@ -22,7 +22,8 @@ app.use(morgan('dev'));
 var whitelist = [
     'http://localhost',
     'http://www.grepnet.io',
-    'http://vps554870.ovh.net'
+    'http://vps554870.ovh.net',
+    'http://vps554870.ovh.net:8080',
 ];
 app.use(cors({
     origin: function (origin, callback) {

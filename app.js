@@ -8,7 +8,7 @@ var logger = require('express-logger');
 
 // Grafana
 const { collectDefaultMetrics, register } = require('prom-client');
-collectDefaultMetrics(); 
+collectDefaultMetrics();
 
 var routes = require('./routes/index');
 
@@ -19,7 +19,11 @@ app.use(logger({
 }));
 app.use(morgan('dev'));
 
-var whitelist = ['http://localhost', 'http://www.grepnet.io'];
+var whitelist = [
+    'http://localhost',
+    'http://www.grepnet.io',
+    'http://vps554870.ovh.net'
+];
 app.use(cors({
     origin: function (origin, callback) {
         var originIsWhitelisted = whitelist.indexOf(origin) !== -1;

@@ -7,7 +7,7 @@ var morgan = require('morgan');
 var logger = require('express-logger');
 
 // Grafana
-import { collectDefaultMetrics, register } from 'prom-client';
+const { collectDefaultMetrics, register } = require('prom-client');
 collectDefaultMetrics(); 
 
 var routes = require('./routes/index');

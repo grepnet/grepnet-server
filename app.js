@@ -6,6 +6,10 @@ var cors = require('cors');
 var morgan = require('morgan');
 var logger = require('express-logger');
 
+// Grafana
+import { collectDefaultMetrics, register } from 'prom-client';
+collectDefaultMetrics(); 
+
 var routes = require('./routes/index');
 
 var app = express();
@@ -29,6 +33,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
+// Grafana
+app.get('/metrics', async (_req, res) => {
+  try {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
+  } catch (err) {
+    res.status(500).end(err);
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
